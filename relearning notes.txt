@@ -1,0 +1,6 @@
+start: log in and chat using only firebase
+1.chat using firebase without login
+2.add the login
+
+
+"auth != null"

@@ -1,0 +1,94 @@
+<html>
+<head>
+<script src="https://www.gstatic.com/firebasejs/4.12.1/firebase.js"></script>
+<script>
+	// Initialize Firebase
+	var config = {
+		apiKey: "AIzaSyD-CtyOdPz8LFfTM3sdNYP5y9M6m5aqioo",
+		authDomain: "relearning-everything.firebaseapp.com",
+		databaseURL: "https://relearning-everything.firebaseio.com",
+		projectId: "relearning-everything",
+		storageBucket: "relearning-everything.appspot.com",
+		messagingSenderId: "35885237884"
+	};
+	firebase.initializeApp(config);
+	  
+	// Get a reference to the database service
+	var relearningDatabase = firebase.database();
+	var relearningRef = relearningDatabase.ref().child("player list");
+	
+	//prompt to enter name
+	var person = prompt("Please enter your name:", "type here");
+	//relearningRef.child("p1").set("o2");
+	var newPlayer = relearningRef.push("o2");
+	//var newPlayer = relearningRef.push();
+	/*newPlayer.set({
+		name: person,
+		//id: newPlayer.key()
+	});*/
+	
+	//relearningRef.child().onDisconnect().remove();
+</script>
+</head>
+
+
+<body>
+
+<div id="chat-text" style="width:500px;"><!--height:100px;overflow-y:scroll"-->
+	<div>Welcome</div>
+</div>
+
+<form id="chat-form">
+	<input id ="chat-input" type="text" style="width:500px"></input>
+</form>
+		
+<script>
+	var chatText = document.getElementById("chat-text");
+	var chatInput = document.getElementById("chat-input");
+	var chatForm = document.getElementById("chat-form");
+	
+	
+	//chat submit via form submit (enter)
+	chatForm.onsubmit = function(e){
+        e.preventDefault();
+        //relearningRef.child(person).child(text).set(chatInput.value);
+        chatInput.value = '';      
+    }
+	
+	/*
+	//chat listen and add stuff to text
+	relearningRef.child(person).on('value', function(datasnapshot){
+		chatText.innerHTML += '<div>' + person + ":" + datasnapshot..val() + '<div>';
+	});
+	*/
+	relearningRef.child('d').on('value', function(theaddedchild){
+		chatText.innerHTML += '<div>' + theaddedchild.key + '<div>';
+	});
+	//copying code from youtube
+	relearningRef.on('child_added', function(theaddedchild){
+		//relearningRef.child(prevChildKey).on('value', function(otherplayer){
+		//chatText.innerHTML += '<div>' + newPlayer.child(name).val() + '<div>';
+		//});
+		//chatText.innerHTML += '<div>' + person + ":" + datasnapshot..val() + '<div>';
+	});
+	
+	/*
+	update = function(){	
+		var pack = {
+			player: Player.update(),
+			bullet: Bullet.update()
+		}
+		
+		//console.log(pack);
+		for(var i in SOCKET_LIST){
+			var socket = SOCKET_LIST[i];
+			socket.emit('newPositions',pack);
+		}
+	}
+	*/
+	//final state redraw on interval, for now redraw on change	
+	//setInterval(update,40);
+
+</script>
+</body>
+</html>
